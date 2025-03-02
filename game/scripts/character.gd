@@ -18,6 +18,12 @@ var camera_sensitivity = 0.003
 var min_camera_angle = -80.0  # Degrees
 var max_camera_angle = 80.0   # Degrees
 
+# Audio system
+@onready var footsteps_walk_player = AudioStreamPlayer.new()
+@onready var footsteps_run_player = AudioStreamPlayer.new()
+@onready var background_music_player = AudioStreamPlayer.new()
+@onready var collect_sound_player = AudioStreamPlayer.new()
+
 # Physics
 const GRAVITY_STRENGTH = 20.0
 var gravity: Vector3
@@ -50,6 +56,9 @@ func _ready():
     running_animation_player.get_animation("Armature|running|baselayer").loop_mode = 1
     dancing_animation_player.get_animation("Armature|Excited_Walk_F|baselayer").loop_mode = 1
     
+    # Initialize audio system
+    setup_audio()
+    
     # Stop all animations initially
     walking_animation_player.stop()
     running_animation_player.stop()
@@ -57,6 +66,35 @@ func _ready():
     
     # Set initial mouse mode
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func setup_audio():
+    # Setup walking sound
+    var walk_stream = load("res://assets/sound/footsteps_walking.wav")
+    footsteps_walk_player.stream = walk_stream
+    footsteps_walk_player.volume_db = -10
+    add_child(footsteps_walk_player)
+    
+    # Setup running sound
+    var run_stream = load("res://assets/sound/footsteps_running.wav")
+    footsteps_run_player.stream = run_stream
+    footsteps_run_player.volume_db = -8
+    add_child(footsteps_run_player)
+    
+    # Setup background music
+    var music_stream = load("res://assets/sound/soundtrack.wav")
+    background_music_player.stream = music_stream
+    background_music_player.volume_db = -15
+    background_music_player.bus = "Music"
+    add_child(background_music_player)
+    
+    # Setup collect sound
+    var collect_stream = load("res://assets/sound/collect.wav")
+    collect_sound_player.stream = collect_stream
+    collect_sound_player.volume_db = -5
+    add_child(collect_sound_player)
+    
+    # Start background music
+    background_music_player.play()
 
 func _input(event):
     if event is InputEventMouseMotion:
@@ -143,28 +181,47 @@ func _physics_process(delta):
 
 func update_animations(input_dir: Vector2):
     if is_dancing:
+        stop_movement_sounds()
         return
         
     if input_dir == Vector2.ZERO:
         walking_animation_player.stop()
         running_animation_player.stop()
+        stop_movement_sounds()
     else:
         if is_running:
             walking_model.hide()
             running_model.show()
             if !running_animation_player.is_playing():
                 running_animation_player.play("Armature|running|baselayer")
+                play_running_sound()
         else:
             running_model.hide()
             walking_model.show()
             if !walking_animation_player.is_playing():
                 walking_animation_player.play("Armature|walking_man|baselayer")
+                play_walking_sound()
+
+func play_walking_sound():
+    if !footsteps_walk_player.playing:
+        footsteps_run_player.stop()
+        footsteps_walk_player.play()
+
+func play_running_sound():
+    if !footsteps_run_player.playing:
+        footsteps_walk_player.stop()
+        footsteps_run_player.play()
+
+func stop_movement_sounds():
+    footsteps_walk_player.stop()
+    footsteps_run_player.stop()
 
 func start_dancing():
     is_dancing = true
     walking_model.hide()
     running_model.hide()
     dancing_model.show()
+    stop_movement_sounds()
     dancing_animation_player.play("Armature|Excited_Walk_F|baselayer")
 
 func stop_dancing():
@@ -179,7 +236,10 @@ func die():
     
     is_dead = true
     
-    # Stop all animations
+    # Stop all animations and sounds
+    stop_movement_sounds()
+    background_music_player.stop()
+    
     if walking_animation_player and walking_animation_player.is_playing():
         walking_animation_player.stop()
     if running_animation_player and running_animation_player.is_playing():
@@ -201,5 +261,6 @@ func die():
 
 func collect_sphere():
     hex_nuts_collected += 1
+    collect_sound_player.play()
     print("Hex nut collected! Total: ", hex_nuts_collected)
-    sphere_collected.emit(hex_nuts_collected) 
+    sphere_collected.emit(hex_nuts_collected)
