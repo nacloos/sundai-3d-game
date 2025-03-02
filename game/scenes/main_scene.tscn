@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4yqvpxq8r2gy"]
+[gd_scene load_steps=13 format=3 uid="uid://b4yqvpxq8r2gy"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_m4p2q"]
 [ext_resource type="Environment" uid="uid://dxj5cdg8fount" path="res://default_env.tres" id="2_8k4vd"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bbeikt4ey36ng" path="res://assets/biped/biped/Animation_Walking_withSkin.glb" id="4_w3p2s"]
 [ext_resource type="PackedScene" uid="uid://b06xw1vjtiw14" path="res://assets/biped/biped/Animation_Running_withSkin.glb" id="5_x4p2t"]
 [ext_resource type="PackedScene" uid="uid://dbiperaie8rfu" path="res://assets/biped/biped/Animation_Excited_Walk_F_withSkin.glb" id="6_y5p2u"]
+[ext_resource type="Script" path="res://scripts/creature.gd" id="7_z5p2v"]
+[ext_resource type="PackedScene" uid="uid://dtpwglbexma6y" path="res://assets/creature/Animation_Walking_withSkin.glb" id="8_a6p2w"]
+[ext_resource type="PackedScene" uid="uid://vo2t0kda0ua6" path="res://assets/creature/Animation_Running_withSkin.glb" id="9_b7p2x"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q8p3r"]
 radius = 20.0
@@ -57,6 +60,23 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1,
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -1, 0)
 
 [node name="Animation_Excited_Walk_F_withSkin" parent="Character/DancingModel" instance=ExtResource("6_y5p2u")]
+
+[node name="Creature" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 5)
+script = ExtResource("7_z5p2v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Creature"]
+shape = SubResource("CapsuleShape3D_t8p3t")
+
+[node name="WalkingModel" type="Node3D" parent="Creature"]
+transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, -1.5, 0)
+
+[node name="Animation_Walking_withSkin" parent="Creature/WalkingModel" instance=ExtResource("8_a6p2w")]
+
+[node name="RunningModel" type="Node3D" parent="Creature"]
+transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 0, -1.5, 0)
+
+[node name="Animation_Running_withSkin" parent="Creature/RunningModel" instance=ExtResource("9_b7p2x")]
 
 [node name="CameraMount" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 0)
