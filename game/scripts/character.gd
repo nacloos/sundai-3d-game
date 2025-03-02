@@ -7,6 +7,10 @@ var is_running = false
 var is_dancing = false
 var is_dead = false
 
+# Collection counter
+var hex_nuts_collected = 0
+signal sphere_collected(total: int)
+
 # Camera
 var camera_rotation_x = 0.0
 var camera_rotation_y = 0.0
@@ -34,6 +38,9 @@ var orientation: Basis
 @onready var camera_mount = $"../CameraMount"
 
 func _ready():
+    # Add to player group for hex nut collection
+    add_to_group("player")
+    
     # Hide running and dancing models initially
     running_model.hide()
     dancing_model.hide()
@@ -190,4 +197,9 @@ func die():
     
     # Restart the game after a delay
     await get_tree().create_timer(2.0).timeout
-    get_tree().reload_current_scene() 
+    get_tree().reload_current_scene()
+
+func collect_sphere():
+    hex_nuts_collected += 1
+    print("Hex nut collected! Total: ", hex_nuts_collected)
+    sphere_collected.emit(hex_nuts_collected) 

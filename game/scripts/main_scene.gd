@@ -4,10 +4,15 @@ const NUM_CREATURES = 5
 const PLANET_RADIUS = 20.0
 
 @onready var creature_scene = preload("res://scenes/creature.tscn")
+@onready var collection_label = $UI/CollectionLabel
 
 func _ready():
 	# Spawn multiple creatures at random positions
 	spawn_creatures()
+	
+	# Connect sphere collection signal
+	var character = $Character
+	character.sphere_collected.connect(_on_sphere_collected)
 
 func spawn_creatures():
 	# Get reference to the original creature
@@ -48,4 +53,7 @@ func random_point_on_sphere(radius):
 	var y = radius * sin(phi) * sin(theta)
 	var z = radius * cos(phi)
 	
-	return Vector3(x, y, z) 
+	return Vector3(x, y, z)
+
+func _on_sphere_collected(total: int):
+	collection_label.text = "Hex Nuts: %d" % total 

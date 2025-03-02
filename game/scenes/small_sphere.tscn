@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8p3v4k2r1t5y"]
+
+[ext_resource type="Script" path="res://scripts/small_sphere.gd" id="1_s5p3v"]
+[ext_resource type="PackedScene" path="res://assets/Hex_Nut_Illustration_0302202817_texture.glb" id="2_hexnu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t8p3u"]
+radius = 1.0
+
+[node name="SmallSphere" type="Area3D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_s5p3v")
+
+[node name="HexNut" parent="." instance=ExtResource("2_hexnu")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_t8p3u") 

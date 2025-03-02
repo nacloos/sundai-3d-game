@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4yqvpxq8r2gy"]
+[gd_scene load_steps=14 format=3 uid="uid://b4yqvpxq8r2gy"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_m4p2q"]
 [ext_resource type="Environment" uid="uid://dxj5cdg8fount" path="res://default_env.tres" id="2_8k4vd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bbeikt4ey36ng" path="res://assets/biped/biped/Animation_Walking_withSkin.glb" id="4_w3p2s"]
 [ext_resource type="PackedScene" uid="uid://b06xw1vjtiw14" path="res://assets/biped/biped/Animation_Running_withSkin.glb" id="5_x4p2t"]
 [ext_resource type="PackedScene" uid="uid://dbiperaie8rfu" path="res://assets/biped/biped/Animation_Excited_Walk_F_withSkin.glb" id="6_y5p2u"]
+[ext_resource type="PackedScene" uid="uid://c8p3v4k2r1t5y" path="res://scenes/small_sphere.tscn" id="7_hexnt"]
 [ext_resource type="Script" path="res://scripts/creature.gd" id="7_z5p2v"]
 [ext_resource type="PackedScene" uid="uid://dtpwglbexma6y" path="res://assets/creature/Animation_Walking_withSkin.glb" id="8_a6p2w"]
 [ext_resource type="PackedScene" uid="uid://vo2t0kda0ua6" path="res://assets/creature/Animation_Running_withSkin.glb" id="9_b7p2x"]
@@ -83,3 +84,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraMount"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 5, 8)
+
+[node name="HexNut1" parent="." instance=ExtResource("7_hexnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 0)
+
+[node name="HexNut2" parent="." instance=ExtResource("7_hexnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.85, 14.85, 0)
+
+[node name="HexNut3" parent="." instance=ExtResource("7_hexnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.124, 12.124, 12.124)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollectionLabel" type="Label" parent="UI"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 46.0
+text = "Hex Nuts: 0"
