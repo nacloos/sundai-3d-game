@@ -13,6 +13,12 @@ jobs:
         with:
           lfs: true
       
+      - name: Install Godot
+        uses: abarichello/godot-ci@master
+        with:
+          version: 4.2.1
+          export-templates: true
+      
       - name: Build
         id: build
         uses: manleydev/build-godot-action@v1.5.0
