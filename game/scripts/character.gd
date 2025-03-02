@@ -6,6 +6,10 @@ var rotation_speed = 2.5
 var is_running = false
 var is_dancing = false
 
+# Collection counter
+var hex_nuts_collected = 0
+signal sphere_collected(total: int)
+
 # Camera
 var camera_rotation_x = 0.0
 var camera_rotation_y = 0.0
@@ -33,6 +37,9 @@ var orientation: Basis
 @onready var camera_mount = $"../CameraMount"
 
 func _ready():
+    # Add to player group for hex nut collection
+    add_to_group("player")
+    
     # Hide running and dancing models initially
     running_model.hide()
     dancing_model.hide()
@@ -68,10 +75,10 @@ func _input(event):
             Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
-    # Get input direction
+    # Get input direction - disabled backward movement
     var input_dir = Vector2.ZERO
     input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-    input_dir.y = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
+    input_dir.y = Input.get_action_strength("move_forward")  # Removed backward input
     input_dir = input_dir.normalized()
     
     # Handle running state
@@ -160,4 +167,9 @@ func stop_dancing():
     is_dancing = false
     dancing_model.hide()
     walking_model.show()
-    dancing_animation_player.stop() 
+    dancing_animation_player.stop()
+
+func collect_sphere():
+    hex_nuts_collected += 1
+    print("Hex nut collected! Total: ", hex_nuts_collected)
+    sphere_collected.emit(hex_nuts_collected)

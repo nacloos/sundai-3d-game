@@ -3,19 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqmvofitgkr1v"
-path.etc2="res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.etc2.ctex"
+path.s3tc="res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.s3tc.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "32fb3be99fe83da23bfc2bcd06d527bd"
+"md5": "db14afcd8aa907d30ef2ff9dd58adce8"
 }
 
 [deps]
 
 source_file="res://assets/spacecraft_0.jpg"
-dest_files=["res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.etc2.ctex"]
+dest_files=["res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.s3tc.ctex"]
 
 [params]
 
