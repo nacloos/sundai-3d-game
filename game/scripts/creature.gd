@@ -12,6 +12,7 @@ const RANDOM_WALK_TIME_MIN = 2.0
 const RANDOM_WALK_TIME_MAX = 5.0
 const IDLE_TIME_MIN = 1.0
 const IDLE_TIME_MAX = 3.0
+const KILL_DISTANCE = 1.0  # Distance at which the creature kills the player
 
 var gravity: Vector3
 var gravity_velocity: Vector3 = Vector3.ZERO
@@ -78,8 +79,14 @@ func _physics_process(delta):
 	else:
 		gravity_velocity += gravity * delta
 	
-	# Calculate movement direction towards player if in range
+	# Check if touching player
 	var distance_to_player = global_position.distance_to(player.global_position)
+	if distance_to_player < KILL_DISTANCE:
+		# Kill player
+		if player.has_method("die"):
+			player.die()
+	
+	# Calculate movement direction towards player if in range
 	if distance_to_player < DETECTION_RANGE:
 		# Chase player mode
 		up_dir = -gravity.normalized()

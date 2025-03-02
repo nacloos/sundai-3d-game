@@ -5,6 +5,7 @@ var movement_speed = 5.0
 var rotation_speed = 2.5
 var is_running = false
 var is_dancing = false
+var is_dead = false
 
 # Camera
 var camera_rotation_x = 0.0
@@ -68,6 +69,9 @@ func _input(event):
             Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
+    if is_dead:
+        return
+    
     # Get input direction
     var input_dir = Vector2.ZERO
     input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -160,4 +164,30 @@ func stop_dancing():
     is_dancing = false
     dancing_model.hide()
     walking_model.show()
-    dancing_animation_player.stop() 
+    dancing_animation_player.stop()
+
+func die():
+    if is_dead:
+        return
+    
+    is_dead = true
+    
+    # Stop all animations
+    if walking_animation_player and walking_animation_player.is_playing():
+        walking_animation_player.stop()
+    if running_animation_player and running_animation_player.is_playing():
+        running_animation_player.stop()
+    if dancing_animation_player and dancing_animation_player.is_playing():
+        dancing_animation_player.stop()
+    
+    # Hide all models
+    $WalkingModel.hide()
+    $RunningModel.hide()
+    $DancingModel.hide()
+    
+    # Disable collision
+    $CollisionShape3D.disabled = true
+    
+    # Restart the game after a delay
+    await get_tree().create_timer(2.0).timeout
+    get_tree().reload_current_scene() 
