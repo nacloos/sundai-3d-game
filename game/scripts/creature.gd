@@ -31,7 +31,7 @@ func _ready():
 	await get_tree().process_frame
 	
 	# Find player node
-	player = get_tree().get_root().get_node("MainScene/Character")
+	player = get_tree().get_root().find_child("Character", true, false)
 	if not player:
 		push_error("Could not find player node")
 		return
