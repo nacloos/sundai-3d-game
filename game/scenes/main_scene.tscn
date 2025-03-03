@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4yqvpxq8r2gy"]
+[gd_scene load_steps=15 format=3 uid="uid://b4yqvpxq8r2gy"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_m4p2q"]
 [ext_resource type="Environment" uid="uid://dxj5cdg8fount" path="res://default_env.tres" id="2_8k4vd"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/creature.gd" id="7_z5p2v"]
 [ext_resource type="PackedScene" uid="uid://dtpwglbexma6y" path="res://assets/creature/Animation_Walking_withSkin.glb" id="8_a6p2w"]
 [ext_resource type="PackedScene" uid="uid://vo2t0kda0ua6" path="res://assets/creature/Animation_Running_withSkin.glb" id="9_b7p2x"]
+[ext_resource type="PackedScene" uid="uid://cbxj1b4cndv6v" path="res://assets/spacecraft.glb" id="11_stt4n"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q8p3r"]
 radius = 20.0
@@ -109,3 +110,8 @@ offset_top = 20.0
 offset_right = 200.0
 offset_bottom = 46.0
 text = "Hex Nuts: 0"
+
+[node name="spacecraft" parent="." instance=ExtResource("11_stt4n")]
+
+[node name="spacecraft2" parent="." instance=ExtResource("11_stt4n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8079, 16.5928, 0)
