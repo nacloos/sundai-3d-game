@@ -23,6 +23,7 @@ var max_camera_angle = 80.0   # Degrees
 @onready var footsteps_run_player = AudioStreamPlayer.new()
 @onready var background_music_player = AudioStreamPlayer.new()
 @onready var collect_sound_player = AudioStreamPlayer.new()
+@onready var die_sound_player = AudioStreamPlayer.new()
 
 # Physics
 const GRAVITY_STRENGTH = 20.0
@@ -92,6 +93,13 @@ func setup_audio():
     collect_sound_player.stream = collect_stream
     collect_sound_player.volume_db = -5
     add_child(collect_sound_player)
+
+	# Setup die sound
+	var die_stream = load("res://assets/sound/die.wav")
+	die_sound_player.stream = die_stream
+	die_sound_player.volume_db = -5
+	add_child(die_sound_player)
+	die_sound_player.stop()
     
     # Start background music
     background_music_player.play()
@@ -235,7 +243,9 @@ func die():
         return
     
     is_dead = true
-    
+
+    die_sound_player.play()
+
     # Stop all animations and sounds
     stop_movement_sounds()
     background_music_player.stop()
