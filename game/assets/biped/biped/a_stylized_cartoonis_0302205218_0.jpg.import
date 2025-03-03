@@ -3,11 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4sjca7np6v32"
-path.s3tc="res://.godot/imported/a_stylized_cartoonis_0302205218_0.jpg-16f930561991dc37516ade557f764634.s3tc.ctex"
-path.etc2="res://.godot/imported/a_stylized_cartoonis_0302205218_0.jpg-16f930561991dc37516ade557f764634.etc2.ctex"
+path="res://.godot/imported/a_stylized_cartoonis_0302205218_0.jpg-16f930561991dc37516ade557f764634.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "aea5202639476b57a4e9370d03e16171"
@@ -16,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/biped/biped/a_stylized_cartoonis_0302205218_0.jpg"
-dest_files=["res://.godot/imported/a_stylized_cartoonis_0302205218_0.jpg-16f930561991dc37516ade557f764634.s3tc.ctex", "res://.godot/imported/a_stylized_cartoonis_0302205218_0.jpg-16f930561991dc37516ade557f764634.etc2.ctex"]
+dest_files=["res://.godot/imported/a_stylized_cartoonis_0302205218_0.jpg-16f930561991dc37516ade557f764634.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

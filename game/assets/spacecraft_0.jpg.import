@@ -3,11 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqmvofitgkr1v"
-path.s3tc="res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.s3tc.ctex"
-path.etc2="res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.etc2.ctex"
+path="res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "32fb3be99fe83da23bfc2bcd06d527bd"
@@ -16,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/spacecraft_0.jpg"
-dest_files=["res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.s3tc.ctex", "res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.etc2.ctex"]
+dest_files=["res://.godot/imported/spacecraft_0.jpg-d2112a7c2e3c097a0fd27b58a37270cb.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,11 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmb0xn2cx44rm"
-path.s3tc="res://.godot/imported/Hex_Nut_Illustration_0302202817_texture_0.jpg-4ec543e69290d02971e6d5413867afe2.s3tc.ctex"
-path.etc2="res://.godot/imported/Hex_Nut_Illustration_0302202817_texture_0.jpg-4ec543e69290d02971e6d5413867afe2.etc2.ctex"
+path="res://.godot/imported/Hex_Nut_Illustration_0302202817_texture_0.jpg-4ec543e69290d02971e6d5413867afe2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "69f6b478c13572a68ed55d0cbb1223ac"
@@ -16,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/Hex_Nut_Illustration_0302202817_texture_0.jpg"
-dest_files=["res://.godot/imported/Hex_Nut_Illustration_0302202817_texture_0.jpg-4ec543e69290d02971e6d5413867afe2.s3tc.ctex", "res://.godot/imported/Hex_Nut_Illustration_0302202817_texture_0.jpg-4ec543e69290d02971e6d5413867afe2.etc2.ctex"]
+dest_files=["res://.godot/imported/Hex_Nut_Illustration_0302202817_texture_0.jpg-4ec543e69290d02971e6d5413867afe2.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
