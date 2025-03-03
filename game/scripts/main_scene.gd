@@ -56,4 +56,4 @@ func random_point_on_sphere(radius):
 	return Vector3(x, y, z)
 
 func _on_sphere_collected(total: int):
-	collection_label.text = "Hex Nuts: %d" % total 
+	collection_label.text = "Hex Nuts: %d / 6" % total 
