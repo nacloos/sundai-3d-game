@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dtpwglbexma6y" path="res://assets/creature/Animation_Walking_withSkin.glb" id="8_a6p2w"]
 [ext_resource type="PackedScene" uid="uid://vo2t0kda0ua6" path="res://assets/creature/Animation_Running_withSkin.glb" id="9_b7p2x"]
 [ext_resource type="PackedScene" uid="uid://cbxj1b4cndv6v" path="res://assets/spacecraft.glb" id="11_stt4n"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="8_c4p3w"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q8p3r"]
 radius = 20.0
@@ -80,11 +81,20 @@ transform = Transform3D(-1.5, 0, -1.31134e-07, 0, 1.5, 0, 1.31134e-07, 0, -1.5, 
 
 [node name="Animation_Running_withSkin" parent="Creature/RunningModel" instance=ExtResource("9_b7p2x")]
 
+
+
+
+
+
 [node name="CameraMount" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21, 0)
+script = ExtResource("8_c4p3w")
 
 [node name="Camera3D" type="Camera3D" parent="CameraMount"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 5, 8)
+current = true
+
+
 
 [node name="HexNut1" parent="." instance=ExtResource("7_hexnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 0)
