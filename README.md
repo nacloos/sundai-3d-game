@@ -1,7 +1,7 @@
 # Lost in spAIce
 
 <div align="center">
-<img src="static\demo.gif" width="300">
+<img src="static\demo.gif" width="400">
 </div>
 <div align="center">
  <a href="https://nacloos.github.io/sundai-3d-game/">Play</a> 
