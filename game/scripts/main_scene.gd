@@ -74,7 +74,14 @@ func random_point_on_sphere(radius):
 	return Vector3(x, y, z)
 
 func _on_sphere_collected(total: int):
-	collection_label.text = "Hex Nuts: %d" % total 
+	collection_label.text = "Hex Nuts: %d" % total
+	
+	# Check if all 6 hex nuts are collected
+	if total >= 6:
+		# Wait a brief moment before transitioning
+		await get_tree().create_timer(1.0).timeout
+		# Change to the departure scene
+		get_tree().change_scene_to_file("res://scenes/departure_scene.tscn")
 
 func pause_game():
 	# Disable character input processing
@@ -356,8 +363,45 @@ func create_start_ui():
 	
 	content_box.add_child(button)
 	
-	# Connect the button signal
+	# Add test button below the start button
+	var test_button = Button.new()
+	test_button.text = "Test End Scene"
+	test_button.add_theme_font_size_override("font_size", 20)
+	test_button.custom_minimum_size = Vector2(200, 40)
+	test_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	
+	# Style the test button (similar to main button but smaller and different color)
+	var test_button_style = StyleBoxFlat.new()
+	test_button_style.bg_color = Color(0.6, 0.2, 0.8, 1.0)  # Purple button
+	test_button_style.border_width_bottom = 4
+	test_button_style.border_color = Color(0.3, 0.1, 0.5, 1.0)
+	test_button_style.corner_radius_top_left = 8
+	test_button_style.corner_radius_top_right = 8
+	test_button_style.corner_radius_bottom_left = 8
+	test_button_style.corner_radius_bottom_right = 8
+	test_button.add_theme_stylebox_override("normal", test_button_style)
+	
+	# Hover style for test button
+	var test_hover_style = test_button_style.duplicate()
+	test_hover_style.bg_color = Color(0.7, 0.3, 0.9, 1.0)  # Lighter purple on hover
+	test_button.add_theme_stylebox_override("hover", test_hover_style)
+	
+	# Pressed style for test button
+	var test_pressed_style = test_button_style.duplicate()
+	test_pressed_style.bg_color = Color(0.5, 0.15, 0.7, 1.0)  # Darker purple when pressed
+	test_pressed_style.border_width_bottom = 2
+	test_button.add_theme_stylebox_override("pressed", test_pressed_style)
+	
+	# Add some spacing before the test button
+	var test_button_spacer = Control.new()
+	test_button_spacer.custom_minimum_size = Vector2(0, 10)
+	content_box.add_child(test_button_spacer)
+	
+	content_box.add_child(test_button)
+	
+	# Connect the button signals
 	button.connect("pressed", start_game)
+	test_button.connect("pressed", _on_test_button_pressed)
 	
 	# Add help text
 	var help_text = Label.new()
@@ -771,4 +815,8 @@ func add_control_mapping_large(grid, action, keys):
 	keys_label.text = keys
 	keys_label.add_theme_font_size_override("font_size", 18)  # Larger font
 	keys_label.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 1.0))
-	grid.add_child(keys_label) 
+	grid.add_child(keys_label)
+
+func _on_test_button_pressed():
+	# Directly change to the departure scene
+	get_tree().change_scene_to_file("res://scenes/departure_scene.tscn") 
