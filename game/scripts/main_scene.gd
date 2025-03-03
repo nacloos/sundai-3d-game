@@ -5,6 +5,7 @@ const PLANET_RADIUS = 20.0
 
 @onready var creature_scene = preload("res://scenes/creature.tscn")
 @onready var collection_label = $UI/CollectionLabel
+@onready var win_screen = $UI/WinScreen
 
 func _ready():
 	# Spawn multiple creatures at random positions
@@ -13,6 +14,13 @@ func _ready():
 	# Connect sphere collection signal
 	var character = $Character
 	character.sphere_collected.connect(_on_sphere_collected)
+	character.game_won.connect(_on_game_won)
+	
+	# Hide win screen initially
+	win_screen.hide()
+	
+	# Connect restart button
+	$UI/WinScreen/VBoxContainer/RestartButton.pressed.connect(_on_restart_button_pressed)
 
 func spawn_creatures():
 	# Get reference to the original creature
@@ -56,4 +64,25 @@ func random_point_on_sphere(radius):
 	return Vector3(x, y, z)
 
 func _on_sphere_collected(total: int):
-	collection_label.text = "Hex Nuts: %d / 6" % total 
+	collection_label.text = "Hex Nuts: %d / 6" % total
+
+func _on_game_won():
+	# Show win screen
+	win_screen.show()
+	
+	# Enable mouse cursor
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	# Stop creature movement
+	for creature in get_tree().get_nodes_in_group("creatures"):
+		if creature.has_method("stop_movement"):
+			creature.stop_movement()
+	
+	# Make player dance
+	var character = $Character
+	if character.has_method("start_dancing"):
+		character.start_dancing()
+
+func _on_restart_button_pressed():
+	# Reload the current scene
+	get_tree().reload_current_scene()

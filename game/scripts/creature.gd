@@ -26,8 +26,12 @@ var player: Node3D = null
 var random_walk_timer: float = 0.0
 var is_walking: bool = false
 var random_direction: Vector3 = Vector3.ZERO
+var is_stopped = false
 
 func _ready():
+	# Add to creatures group
+	add_to_group("creatures")
+	
 	# Wait for scene tree to be ready
 	await get_tree().process_frame
 	
@@ -64,9 +68,17 @@ func _get_random_direction():
 	up_dir = -gravity.normalized()
 	return (right - up_dir * right.dot(up_dir)).normalized()
 
+func stop_movement():
+	is_stopped = true
+	velocity = Vector3.ZERO
+	if walking_animation_player and walking_animation_player.is_playing():
+		walking_animation_player.stop()
+	if running_animation_player and running_animation_player.is_playing():
+		running_animation_player.stop()
+
 func _physics_process(delta):
-	# Skip if player reference is invalid
-	if not player:
+	# Skip if player reference is invalid or creature is stopped
+	if not player or is_stopped:
 		return
 		
 	# Calculate gravity direction towards planet center

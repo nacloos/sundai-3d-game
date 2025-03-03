@@ -10,6 +10,7 @@ var is_dead = false
 # Collection counter
 var hex_nuts_collected = 0
 signal sphere_collected(total: int)
+signal game_won
 
 # Camera
 var camera_rotation_x = 0.0
@@ -274,3 +275,6 @@ func collect_sphere():
 	collect_sound_player.play()
 	print("Hex nut collected! Total: ", hex_nuts_collected)
 	sphere_collected.emit(hex_nuts_collected)
+	
+	if hex_nuts_collected >= 6:
+		game_won.emit()
