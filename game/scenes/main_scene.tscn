@@ -98,12 +98,27 @@ current = true
 
 [node name="HexNut1" parent="." instance=ExtResource("7_hexnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 0)
+collision_layer = 2
 
 [node name="HexNut2" parent="." instance=ExtResource("7_hexnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.85, 14.85, 0)
+collision_layer = 2
 
 [node name="HexNut3" parent="." instance=ExtResource("7_hexnt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.124, 12.124, 12.124)
+collision_layer = 2
+
+[node name="HexNut4" parent="." instance=ExtResource("7_hexnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.63, -7.63, -18.68)
+collision_layer = 2
+
+[node name="HexNut5" parent="." instance=ExtResource("7_hexnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.21, -13.21, 10.79)
+collision_layer = 2
+
+[node name="HexNut6" parent="." instance=ExtResource("7_hexnt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.21, -13.21, -10.79)
+collision_layer = 2
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
