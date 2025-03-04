@@ -7,6 +7,10 @@ var is_running = false
 var is_dancing = false
 var is_dead = false
 
+# Touch input
+var touch_input = Vector2.ZERO
+var is_touch_screen = false
+
 # Collection counter
 var hex_nuts_collected = 0
 signal sphere_collected(total: int)
@@ -68,6 +72,9 @@ func _ready():
 	
 	# Set initial mouse mode
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# Check if touch screen is available
+	is_touch_screen = DisplayServer.is_touchscreen_available()
 
 func setup_audio():
 	# Setup walking sound
@@ -106,6 +113,9 @@ func setup_audio():
 	background_music_player.play()
 
 func _input(event):
+	if is_touch_screen:
+		return  # Skip mouse input on touch devices
+		
 	if event is InputEventMouseMotion:
 		# Rotate camera mount horizontally
 		camera_rotation_y -= event.relative.x * camera_sensitivity
@@ -128,15 +138,17 @@ func _physics_process(delta):
 	
 	# Get input direction
 	var input_dir = Vector2.ZERO
-	input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	input_dir.y = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
-	input_dir = input_dir.normalized()
-	
-	# Handle running state
-	is_running = Input.is_action_pressed("run") and input_dir != Vector2.ZERO
+	if is_touch_screen:
+		input_dir = touch_input
+		is_running = input_dir != Vector2.ZERO  # Always run with touch controls
+	else:
+		input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+		input_dir.y = Input.get_action_strength("move_forward") - Input.get_action_strength("move_backward")
+		input_dir = input_dir.normalized()
+		is_running = Input.is_action_pressed("run") and input_dir != Vector2.ZERO
 	
 	# Handle dancing
-	if Input.is_action_just_pressed("dance"):
+	if Input.is_action_just_pressed("dance") and !is_touch_screen:
 		if !is_dancing:
 			start_dancing()
 	
@@ -278,3 +290,13 @@ func collect_sphere():
 	
 	if hex_nuts_collected >= 6:
 		game_won.emit()
+
+# Touch input handlers
+func _on_touch_joystick_input(input: Vector2):
+	touch_input = input
+
+func _on_touch_dance_pressed():
+	if !is_dancing:
+		start_dancing()
+	else:
+		stop_dancing()

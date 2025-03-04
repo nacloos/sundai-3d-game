@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4yqvpxq8r2gy"]
+[gd_scene load_steps=19 format=3 uid="uid://b4yqvpxq8r2gy"]
 
 [ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_m4p2q"]
 [ext_resource type="Environment" uid="uid://dxj5cdg8fount" path="res://default_env.tres" id="2_8k4vd"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="8_c4p3w"]
 [ext_resource type="PackedScene" uid="uid://vo2t0kda0ua6" path="res://assets/creature/Animation_Running_withSkin.glb" id="9_b7p2x"]
 [ext_resource type="PackedScene" uid="uid://2jnrnil715hf" path="res://assets/Create_a_3D_spaceship_0302194151_texture.glb" id="14_iwqfw"]
+[ext_resource type="PackedScene" uid="uid://touch_controls" path="res://scenes/touch_controls.tscn" id="15_touch"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_732rk"]
 albedo_texture = ExtResource("3_frgiy")
@@ -172,3 +173,6 @@ text = "Play Again"
 
 [node name="Create_a_3D_spaceship_0302194151_texture" parent="." instance=ExtResource("14_iwqfw")]
 transform = Transform3D(3.49804, 0.178659, 0.0445116, -0.18412, 3.39428, 0.84566, 0, -0.846831, 3.39898, 4.44677, 23.5941, -5.62568)
+
+[node name="TouchControls" parent="UI" instance=ExtResource("15_touch")]
+layout_mode = 1

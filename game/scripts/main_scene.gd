@@ -6,21 +6,30 @@ const PLANET_RADIUS = 20.0
 @onready var creature_scene = preload("res://scenes/creature.tscn")
 @onready var collection_label = $UI/CollectionLabel
 @onready var win_screen = $UI/WinScreen
+@onready var touch_controls = $UI/TouchControls
+@onready var character = $Character
+@onready var restart_button = $UI/WinScreen/VBoxContainer/RestartButton
 
 func _ready():
 	# Spawn multiple creatures at random positions
 	spawn_creatures()
 	
 	# Connect sphere collection signal
-	var character = $Character
 	character.sphere_collected.connect(_on_sphere_collected)
 	character.game_won.connect(_on_game_won)
 	
 	# Hide win screen initially
 	win_screen.hide()
 	
-	# Connect restart button
-	$UI/WinScreen/VBoxContainer/RestartButton.pressed.connect(_on_restart_button_pressed)
+	# Connect restart button with both mouse click and touch
+	restart_button.pressed.connect(_on_restart_button_pressed)
+	restart_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	restart_button.focus_mode = Control.FOCUS_ALL
+	
+	# Connect touch controls signals
+	if touch_controls:
+		touch_controls.joystick_input.connect(character._on_touch_joystick_input)
+		touch_controls.dance_pressed.connect(character._on_touch_dance_pressed)
 
 func spawn_creatures():
 	# Get reference to the original creature
@@ -69,8 +78,12 @@ func _on_sphere_collected(total: int):
 func _on_game_won():
 	# Show win screen
 	win_screen.show()
+	win_screen.mouse_filter = Control.MOUSE_FILTER_STOP
 	
-	# Enable mouse cursor
+	# Make sure win screen is on top and can receive input
+	win_screen.top_level = true
+	
+	# Enable mouse/touch input
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	# Stop creature movement
@@ -79,10 +92,13 @@ func _on_game_won():
 			creature.stop_movement()
 	
 	# Make player dance
-	var character = $Character
 	if character.has_method("start_dancing"):
 		character.start_dancing()
 
 func _on_restart_button_pressed():
+	# Make sure to handle any cleanup before restarting
+	if touch_controls and touch_controls.visible:
+		touch_controls.reset_joystick()
+	
 	# Reload the current scene
 	get_tree().reload_current_scene()
