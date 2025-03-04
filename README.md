@@ -16,6 +16,7 @@ We built a game in one day for the [Sundai](https://www.sundai.club/) hackathon 
 * 3D assets + animations: [www.meshy.ai](www.meshy.ai)
 * Sounds: [https://freesound.org/](https://freesound.org/)
 * Gravity system: [https://github.com/Hugo-Dz/super-godot-galaxy](https://github.com/Hugo-Dz/super-godot-galaxy)
+* IDE: Cursor / Windsurf + Claude
 
 
 ## Team
